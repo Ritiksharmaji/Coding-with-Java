@@ -303,6 +303,42 @@ This ensures all calculations fit within `int`. Let me know if you need further 
 Result: 35831808
 ```
 
+
+## -- best case ---------
+
+```
+class Solution {
+    static final int MOD = 1_000_000_007;
+
+    // Function to reverse a number using StringBuilder
+    private int reverse(int n) {
+        String reversedStr = new StringBuilder(String.valueOf(n)).reverse().toString();
+        return Integer.parseInt(reversedStr);
+    }
+
+    // Function to compute (base^exp) % MOD using fast exponentiation
+    private int powerMod(int base, int exp) {
+        int result = 1;
+        base = base % MOD; // Ensure base is within MOD
+
+        while (exp > 0) {
+            if (exp % 2 == 1) { // If exponent is odd, multiply base
+                result = (int) ((1L * result * base) % MOD);
+            }
+            base = (int) ((1L * base * base) % MOD); // Square the base
+            exp /= 2; // Reduce exponent by half
+        }
+        return result;
+    }
+
+    public int reverseExponentiation(int n) {
+        int r = reverse(n); // Find reverse of n
+        return powerMod(n, r); // Compute (n^r) % MOD
+    }
+}
+
+
+```
 ---
 
 ### **Why Use Modular Exponentiation?**
